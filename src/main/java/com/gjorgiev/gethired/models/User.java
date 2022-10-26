@@ -1,19 +1,27 @@
 package com.gjorgiev.gethired.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @ManyToMany
+    @JoinTable(
+            name = "user_skills",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> skills;
-    private List<Search> recentSearches;
+    @OneToMany
+    @JoinTable(
+            name = "user_searches",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "search_id"))
+    private List<Search> searches;
 
     public User() {
     }
@@ -42,11 +50,15 @@ public class User {
         this.skills = skills;
     }
 
-    public List<Search> getRecentSearches() {
-        return recentSearches;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setRecentSearches(List<Search> recentSearches) {
-        this.recentSearches = recentSearches;
+    public List<Search> getSearches() {
+        return searches;
+    }
+
+    public void setSearches(List<Search> searches) {
+        this.searches = searches;
     }
 }

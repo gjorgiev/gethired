@@ -4,19 +4,36 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "jobs")
 public class Job {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
     @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false)
     private Company company;
     private boolean remote;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
     private Location location;
-    private List<Skill> requiredSkills;
+    @OneToMany
+    @JoinTable(
+            name = "job_skills",
+            joinColumns = @JoinColumn(name = "job_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    private List<Skill> skills;
 
     public Job() {
+    }
+
+    public Job(String title, String description, Company company, boolean remote, Location location) {
+        this.title = title;
+        this.description = description;
+        this.company = company;
+        this.remote = remote;
+        this.location = location;
     }
 
     public long getId() {
@@ -67,11 +84,4 @@ public class Job {
         this.location = location;
     }
 
-    public List<Skill> getRequiredSkills() {
-        return requiredSkills;
-    }
-
-    public void setRequiredSkills(List<Skill> requiredSkills) {
-        this.requiredSkills = requiredSkills;
-    }
 }

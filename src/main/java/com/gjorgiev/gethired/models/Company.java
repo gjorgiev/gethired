@@ -4,13 +4,18 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "companies")
 public class Company {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany
-    private List<Job> openPositions;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "company_jobs",
+            joinColumns = @JoinColumn(name = "company_id"),
+            inverseJoinColumns = @JoinColumn(name = "job_id"))
+    private List<Job> jobs;
 
     public Company() {
     }
@@ -31,11 +36,15 @@ public class Company {
         this.name = name;
     }
 
-    public List<Job> getOpenPositions() {
-        return openPositions;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setOpenPositions(List<Job> openPositions) {
-        this.openPositions = openPositions;
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 }
