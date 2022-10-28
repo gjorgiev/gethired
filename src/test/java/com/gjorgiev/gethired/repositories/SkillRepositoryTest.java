@@ -16,7 +16,7 @@ public class SkillRepositoryTest {
     private SkillRepository repository;
 
     @Test
-    public void should_find_no_locations_if_repository_is_empty(){
+    public void should_find_no_skills_if_repository_is_empty(){
         Iterable<Skill> skills = repository.findAll();
         assertThat(skills).isEmpty();
     }

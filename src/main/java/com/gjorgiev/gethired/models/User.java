@@ -1,21 +1,32 @@
 package com.gjorgiev.gethired.models;
 
+import lombok.*;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
     @ManyToMany
     @JoinTable(
             name = "user_skills",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private List<Skill> skills;
+    private List<Skill> skills = new ArrayList<>();
     @OneToMany
     @JoinTable(
             name = "user_searches",
@@ -23,42 +34,4 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "search_id"))
     private List<Search> searches;
 
-    public User() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Skill> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<Search> getSearches() {
-        return searches;
-    }
-
-    public void setSearches(List<Search> searches) {
-        this.searches = searches;
-    }
 }

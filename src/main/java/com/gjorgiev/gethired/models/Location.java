@@ -1,40 +1,29 @@
 package com.gjorgiev.gethired.models;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
 @Table(name = "locations")
 public class Location {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "city", nullable = false)
     private String city;
+    @Column(name = "country", nullable = false)
     private String country;
-
-    public Location() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
+    @OneToMany(mappedBy = "location")
+    private List<User> users;
+    @OneToMany(mappedBy = "location")
+    private List<Job> jobs;
 }
