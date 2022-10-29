@@ -6,4 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface LocationService {
     Page<Location> getLocations(Pageable pageable);
+    Location getLocationById(Long locationId);
 }

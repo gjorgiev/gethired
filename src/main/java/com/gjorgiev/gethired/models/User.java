@@ -1,5 +1,6 @@
 package com.gjorgiev.gethired.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
-@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -23,15 +23,14 @@ public class User {
     private Location location;
     @ManyToMany
     @JoinTable(
-            name = "user_skills",
+            name = "users_skills",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private List<Skill> skills = new ArrayList<>();
-    @OneToMany
-    @JoinTable(
-            name = "user_searches",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "search_id"))
+    private List<Skill> skills;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Search> searches;
-
+    public User(){
+        this.skills = new ArrayList<>();
+    }
 }

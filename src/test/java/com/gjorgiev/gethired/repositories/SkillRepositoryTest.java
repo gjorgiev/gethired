@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 public class SkillRepositoryTest {
@@ -16,8 +17,23 @@ public class SkillRepositoryTest {
     private SkillRepository repository;
 
     @Test
-    public void should_find_no_skills_if_repository_is_empty(){
+    public void isEmpty(){
         Iterable<Skill> skills = repository.findAll();
         assertThat(skills).isEmpty();
+    }
+
+    @Test
+    public void findSkillById() throws Exception{
+        Skill skill1 = new Skill();
+        skill1.setName("Java");
+        entityManager.persist(skill1);
+
+        Skill skill2 = new Skill();
+        skill2.setName("Python");
+        entityManager.persist(skill2);
+
+        Skill skill = repository.findSkillById(skill1.getId()).orElseThrow(() -> new Exception("not found"));
+
+        assertEquals(skill, skill1);
     }
 }

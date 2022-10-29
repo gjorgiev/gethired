@@ -1,5 +1,6 @@
 package com.gjorgiev.gethired.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,9 @@ public class Location {
     @Column(name = "country", nullable = false)
     private String country;
     @OneToMany(mappedBy = "location")
+    @JsonIgnore
     private List<User> users;
     @OneToMany(mappedBy = "location")
+    @JsonIgnore
     private List<Job> jobs;
 }

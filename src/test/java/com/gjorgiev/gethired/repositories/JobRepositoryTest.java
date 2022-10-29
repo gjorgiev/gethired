@@ -23,13 +23,13 @@ public class JobRepositoryTest {
     private JobRepository repository;
 
     @Test
-    public void should_find_no_jobs_if_repository_is_empty() {
+    public void isEmpty() {
         Iterable<Job> jobs = repository.findAll();
         assertThat(jobs).isEmpty();
     }
 
     @Test
-    public void should_find_job_by_id(){
+    public void findJobById() throws Exception {
         Company company = new Company();
         company.setName("Microsoft");
         entityManager.persist(company);
@@ -44,14 +44,13 @@ public class JobRepositoryTest {
         job2.setCompany(company);
         entityManager.persist(job2);
 
-        Job job = repository.findJobById(job1.getId())
-                .orElseThrow(() -> new ApiRequestException("Job with id: " + job1.getId() + " not found", HttpStatus.NOT_FOUND));
+        Job job = repository.findJobById(job1.getId()).orElseThrow(() -> new Exception("not found"));
 
         assertEquals(job, job1);
     }
 
     @Test
-    public void should_find_all_jobs_by_title_or_description_containing_string() throws Exception {
+    public void search() throws Exception {
         Company company = new Company();
         company.setName("Microsoft");
         entityManager.persist(company);
@@ -72,7 +71,7 @@ public class JobRepositoryTest {
     }
 
     @Test
-    public void should_find_all_jobs_by_company() throws Exception {
+    public void findAllByCompany() throws Exception {
         Company company = new Company();
         company.setName("Microsoft");
         entityManager.persist(company);
@@ -95,7 +94,7 @@ public class JobRepositoryTest {
     }
 
     @Test
-    public void should_find_all_remote_jobs() throws Exception {
+    public void findByRemote() throws Exception {
         Company company = new Company();
         company.setName("Microsoft");
         entityManager.persist(company);
@@ -118,7 +117,7 @@ public class JobRepositoryTest {
     }
 
     @Test
-    public void should_find_all_jobs_by_skill(){
+    public void findAllBySkills(){
         Skill skill1 = new Skill();
         skill1.setName("Java");
         entityManager.persist(skill1);
@@ -156,7 +155,7 @@ public class JobRepositoryTest {
     }
 
     @Test
-    public void should_find_all_jobs_by_location(){
+    public void findAllByLocation(){
         Location location1 = new Location();
         location1.setCity("New York");
         location1.setCountry("USA");

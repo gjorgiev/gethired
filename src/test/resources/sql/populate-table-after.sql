@@ -1,3 +1,9 @@
+delete from jobs_skills;
+delete from users_skills;
+delete from searches_jobs;
+delete from searches;
+delete from users;
 delete from locations;
+delete from skills;
 delete from jobs;
 delete from companies;

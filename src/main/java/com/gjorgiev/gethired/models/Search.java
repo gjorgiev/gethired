@@ -27,7 +27,7 @@ public class Search {
     private boolean remote;
     @ManyToMany
     @JoinTable(
-            name = "search_jobs",
+            name = "searches_jobs",
             joinColumns = @JoinColumn(name = "search_id"),
             inverseJoinColumns = @JoinColumn(name = "job_id"))
     private List<Job> results;

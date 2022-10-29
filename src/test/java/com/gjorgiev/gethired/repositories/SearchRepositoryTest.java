@@ -18,13 +18,13 @@ public class SearchRepositoryTest {
     private SearchRepository repository;
 
     @Test
-    public void should_find_no_searches_if_repository_is_empty(){
+    public void isEmpty(){
         Iterable<Search> searches = repository.findAll();
         assertThat(searches).isEmpty();
     }
 
     @Test
-    public void should_find_all_searches_by_user() {
+    public void findAllByUserId() {
         User user1 = new User();
         user1.setName("John Smith");
         entityManager.persist(user1);
@@ -44,13 +44,13 @@ public class SearchRepositoryTest {
         entityManager.persist(search2);
 
 
-        Iterable<Search> searches = repository.findAllByUser(user1);
+        Iterable<Search> searches = repository.findAllByUserId(user1.getId());
 
         assertThat(searches).hasSize(1).contains(search1);
     }
 
     @Test
-    public void should_find_all_searches_by_keywords(){
+    public void findALlByKeywordsContaining(){
         User user1 = new User();
         user1.setName("John Smith");
         entityManager.persist(user1);
@@ -75,7 +75,7 @@ public class SearchRepositoryTest {
     }
 
     @Test
-    public void should_find_all_searches_by_location(){
+    public void findAllByLocationId(){
         User user1 = new User();
         user1.setName("John Smith");
         entityManager.persist(user1);
@@ -106,7 +106,7 @@ public class SearchRepositoryTest {
         search2.setLocation(location2);
         entityManager.persist(search2);
 
-        Iterable<Search> searches = repository.findAllByLocation(location1.getId());
+        Iterable<Search> searches = repository.findAllByLocationId(location1.getId());
 
         assertThat(searches).hasSize(1).contains(search1);
     }

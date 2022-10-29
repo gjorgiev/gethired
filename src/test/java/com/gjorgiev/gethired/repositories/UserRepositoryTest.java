@@ -19,13 +19,13 @@ public class UserRepositoryTest {
     private UserRepository repository;
 
     @Test
-    public void should_find_no_locations_if_repository_is_empty(){
+    public void isEmpty(){
         Iterable<User> users = repository.findAll();
         assertThat(users).isEmpty();
     }
 
     @Test
-    public void should_find_all_users_by_location(){
+    public void findAllByLocationId(){
         Location location1 = new Location();
         location1.setCity("New York");
         location1.setCountry("USA");
@@ -52,7 +52,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void should_find_all_users_by_skill(){
+    public void findAllBySkills(){
         Skill skill1 = new Skill();
         skill1.setName("Java");
         entityManager.persist(skill1);

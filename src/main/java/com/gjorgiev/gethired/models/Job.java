@@ -1,7 +1,6 @@
 package com.gjorgiev.gethired.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
-@NoArgsConstructor
 @Table(name = "jobs")
 public class Job {
     @Id
@@ -31,11 +29,12 @@ public class Job {
     private Location location;
     @ManyToMany
     @JoinTable(
-            name = "job_skills",
+            name = "jobs_skills",
             joinColumns = @JoinColumn(name = "job_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private List<Skill> skills = new ArrayList<>();
+    private List<Skill> skills;
     @ManyToMany(mappedBy = "results")
+    @JsonIgnore
     private List<Search> appearedIn;
 
     public Job(String title, String description, Company company, boolean remote, Location location) {
@@ -44,6 +43,11 @@ public class Job {
         this.company = company;
         this.remote = remote;
         this.location = location;
+        this.skills = new ArrayList<>();
+    }
+
+    public Job(){
+        this.skills = new ArrayList<>();
     }
 
 }

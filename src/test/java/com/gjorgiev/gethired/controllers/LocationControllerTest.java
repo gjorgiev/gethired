@@ -9,7 +9,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.gjorgiev.gethired.utils.TestConstants.URL_JOBS_BASE;
+import static com.gjorgiev.gethired.utils.TestConstants.URL_LOCATIONS_BASE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,35 +19,34 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource("/application-test.properties")
 @Sql(value = {"/sql/populate-table-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = {"/sql/populate-table-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class JobControllerTest {
+public class LocationControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("[200] GET /api/v1/jobs - Get jobs")
-    public void getJobs() throws Exception{
-        mockMvc.perform(get(URL_JOBS_BASE))
+    @DisplayName("[200] GET /api/v1/locations - Get locations")
+    public void getLocations() throws Exception{
+        mockMvc.perform(get(URL_LOCATIONS_BASE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("totalElements").value(3))
                 .andExpect(jsonPath("content[0].id").value(1))
-                .andExpect(jsonPath("content[0].title").value("Java Developer"))
-                .andExpect(jsonPath("content[0].company.id").value(1))
+                .andExpect(jsonPath("content[0].city").value("Los Angeles"))
+                .andExpect(jsonPath("content[0].country").value("USA"))
                 .andExpect(jsonPath("content[1].id").value(2))
-                .andExpect(jsonPath("content[1].title").value("Python Developer"))
-                .andExpect(jsonPath("content[1].company.id").value(2))
+                .andExpect(jsonPath("content[1].city").value("Berlin"))
+                .andExpect(jsonPath("content[1].country").value("Germany"))
                 .andExpect(jsonPath("content[2].id").value(3))
-                .andExpect(jsonPath("content[2].title").value("Scala Developer"))
-                .andExpect(jsonPath("content[2].company.id").value(3));
+                .andExpect(jsonPath("content[2].city").value("London"))
+                .andExpect(jsonPath("content[2].country").value("United Kingdom"));
     }
 
     @Test
-    @DisplayName("[200] GET /api/v1/jobs/1 - Get Job by id")
-    public void getJobById() throws Exception{
-        mockMvc.perform(get(URL_JOBS_BASE + "/1"))
+    @DisplayName("[200] GET /api/v1/locations/1 - Get location by id")
+    public void getLocationById() throws Exception{
+        mockMvc.perform(get(URL_LOCATIONS_BASE + "/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(1))
-                .andExpect(jsonPath("title").value("Java Developer"))
-                .andExpect(jsonPath("company.id").value(1));
+                .andExpect(jsonPath("city").value("Los Angeles"))
+                .andExpect(jsonPath("country").value("USA"));
     }
-
 }
