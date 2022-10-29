@@ -1,5 +1,6 @@
 package com.gjorgiev.gethired.controllers;
 
+import com.gjorgiev.gethired.dto.request.CompanyRequest;
 import com.gjorgiev.gethired.models.Company;
 import com.gjorgiev.gethired.services.CompanyService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -26,17 +30,18 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<Company> createCompany(@RequestBody Company company){
-        return ResponseEntity.ok(companyService.createCompany(company));
+    public ResponseEntity<Company> createCompany(@Valid @RequestBody CompanyRequest companyRequest){
+        return ResponseEntity.ok(companyService.createCompany(companyRequest));
     }
 
-    @PutMapping
-    public ResponseEntity<Company> updateCompany(@RequestBody Company company){
-        return ResponseEntity.ok(companyService.updateCompany(company));
+    @PutMapping("/{companyId}")
+    public ResponseEntity<Company> updateCompany(@PathVariable Long companyId, @Valid @RequestBody CompanyRequest companyRequest){
+        return ResponseEntity.ok(companyService.updateCompany(companyId, companyRequest));
     }
 
     @DeleteMapping("/{companyId}")
     public void deleteCompany(@RequestBody Long companyId){
         companyService.deleteCompany(companyId);
     }
+
 }

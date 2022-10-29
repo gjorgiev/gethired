@@ -2,13 +2,15 @@ package com.gjorgiev.gethired.dto.request;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 
 @Data
 public class JobRequest {
-    private Long id;
+    @NotNull(message = "Job title must not be null")
     private String title;
     private String description;
-    private Long companyId;
+    private CompanyRequest companyRequest;
     private boolean remote;
-    private Long locationId;
+    private LocationRequest locationRequest;
 }

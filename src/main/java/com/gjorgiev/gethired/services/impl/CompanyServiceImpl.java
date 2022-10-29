@@ -1,10 +1,12 @@
 package com.gjorgiev.gethired.services.impl;
 
+import com.gjorgiev.gethired.dto.request.CompanyRequest;
 import com.gjorgiev.gethired.exceptions.ApiRequestException;
 import com.gjorgiev.gethired.models.Company;
 import com.gjorgiev.gethired.repositories.CompanyRepository;
 import com.gjorgiev.gethired.services.CompanyService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService{
     private final CompanyRepository companyRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public Page<Company> getCompanies(Pageable pageable) {
@@ -27,21 +30,16 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public Company createCompany(Company company) {
-        if (company.getName() == null)
-            throw new ApiRequestException("Company name can't be null", HttpStatus.BAD_REQUEST);
+    public Company createCompany(CompanyRequest companyRequest) {
+        Company company = this.modelMapper.map(companyRequest, Company.class);
         return companyRepository.save(company);
     }
 
     @Override
-    public Company updateCompany(Company companyInfo) {
-        if (companyInfo.getId() == null)
-            throw new ApiRequestException("Company id can't be null", HttpStatus.BAD_REQUEST);
-        if (companyInfo.getName() == null)
-            throw new ApiRequestException("Company name can't be null", HttpStatus.BAD_REQUEST);
-        Company company = companyRepository.findById(companyInfo.getId())
+    public Company updateCompany(Long companyId, CompanyRequest companyRequest) {
+        Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new ApiRequestException("Company not found", HttpStatus.NOT_FOUND));
-        company.setName(companyInfo.getName());
+        company.setName(companyRequest.getName());
         return companyRepository.save(company);
     }
 
