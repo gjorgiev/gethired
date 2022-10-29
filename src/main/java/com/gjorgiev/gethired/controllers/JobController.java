@@ -1,5 +1,7 @@
 package com.gjorgiev.gethired.controllers;
 
+import com.gjorgiev.gethired.dto.request.JobRequest;
+import com.gjorgiev.gethired.dto.response.JobResponse;
 import com.gjorgiev.gethired.models.Job;
 import com.gjorgiev.gethired.services.JobService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -27,7 +31,17 @@ public class JobController {
     }
 
     @PostMapping
-    public ResponseEntity<Job> createJob(@RequestBody Job job){
-        return ResponseEntity.ok(jobService.createNewJob(job));
+    public ResponseEntity<Job> createJob(@Valid @RequestBody JobRequest jobRequest){
+        return ResponseEntity.ok(jobService.createNewJob(jobRequest));
+    }
+
+    @PutMapping("/{jobId}")
+    public ResponseEntity<JobResponse> updateJob(@PathVariable Long jobId, JobRequest jobRequest){
+        return ResponseEntity.ok(jobService.updateJob(jobId, jobRequest));
+    }
+
+    @DeleteMapping("/{jobId}")
+    public void deleteJob(@PathVariable Long jobId){
+        jobService.deleteJob(jobId);
     }
 }

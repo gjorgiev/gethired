@@ -40,7 +40,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/{companyId}")
-    public void deleteCompany(@RequestBody Long companyId){
+    public void deleteCompany(@PathVariable Long companyId){
         companyService.deleteCompany(companyId);
     }
 

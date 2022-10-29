@@ -1,5 +1,7 @@
 package com.gjorgiev.gethired.services.impl;
 
+import com.gjorgiev.gethired.dto.request.SkillRequest;
+import com.gjorgiev.gethired.dto.response.SkillResponse;
 import com.gjorgiev.gethired.exceptions.ApiRequestException;
 import com.gjorgiev.gethired.models.Skill;
 import com.gjorgiev.gethired.repositories.SkillRepository;
@@ -23,5 +25,10 @@ public class SkillServiceImpl implements SkillService {
     public Skill getSkillById(Long skillId) {
         return skillRepository.findSkillById(skillId)
                 .orElseThrow(() -> new ApiRequestException("Skill with id = " + skillId + " not found", HttpStatus.NOT_FOUND));
+    }
+
+    @Override
+    public SkillResponse createSkill(SkillRequest skillRequest) {
+        return null;
     }
 }
