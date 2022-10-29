@@ -46,7 +46,7 @@ public class UserRepositoryTest {
         user2.setLocation(location2);
         entityManager.persist(user2);
 
-        Iterable<User> users = repository.findAllByLocation(location1.getId());
+        Iterable<User> users = repository.findAllByLocationId(location1.getId());
 
         assertThat(users).hasSize(1).contains(user1);
     }

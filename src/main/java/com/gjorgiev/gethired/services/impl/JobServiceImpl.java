@@ -25,4 +25,9 @@ public class JobServiceImpl implements JobService {
         return jobRepository.findJobById(jobId)
                 .orElseThrow(() -> new ApiRequestException("Job with id = " + jobId + " not found", HttpStatus.NOT_FOUND));
     }
+
+    @Override
+    public Job createNewJob(Job job) {
+        return jobRepository.save(job);
+    }
 }

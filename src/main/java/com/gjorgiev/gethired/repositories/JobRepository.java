@@ -20,11 +20,8 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> search(@Param("keywords") String keywords);
     List<Job> findAllByCompany(Company company);
     List<Job> findByRemote(boolean remote);
-
     List<Job> findAllBySkills(Skill skill);
-
     List<Job> findAllByLocation(Location location);
-
     @Query("SELECT job FROM Job job WHERE job.id = :jobId")
     Optional<Job> findJobById(Long jobId);
 }

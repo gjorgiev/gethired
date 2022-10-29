@@ -7,4 +7,7 @@ import org.springframework.data.domain.Pageable;
 public interface CompanyService {
     Page<Company> getCompanies(Pageable pageable);
     Company getCompanyById(Long companyId);
+    Company createCompany(Company company);
+    Company updateCompany(Company company);
+    void deleteCompany(Long companyId);
 }

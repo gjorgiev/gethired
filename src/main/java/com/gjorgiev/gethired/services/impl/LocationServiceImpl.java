@@ -24,4 +24,9 @@ public class LocationServiceImpl implements LocationService {
         return locationRepository.findLocationById(locationId)
                 .orElseThrow(() -> new ApiRequestException("Location with id = " + locationId + " not found", HttpStatus.NOT_FOUND));
     }
+
+    @Override
+    public Location createLocation(Location location) {
+        return locationRepository.save(location);
+    }
 }

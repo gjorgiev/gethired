@@ -25,7 +25,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("[200] GET /api/v1/users/1/searches - Get user searches by id")
+    @DisplayName("[200] GET /api/v1/users/11/searches - Get user searches by id")
     public void getUserSearches() throws Exception {
         mockMvc.perform(get(URL_USERS_BASE + "/" + USER_ID + "/searches"))
                 .andExpect(status().isOk());

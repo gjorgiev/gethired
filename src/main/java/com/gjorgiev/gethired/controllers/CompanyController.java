@@ -7,10 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,5 +23,20 @@ public class CompanyController {
     @GetMapping("/{companyId}")
     public ResponseEntity<Company> getCompanyById(@PathVariable Long companyId){
         return ResponseEntity.ok(companyService.getCompanyById(companyId));
+    }
+
+    @PostMapping
+    public ResponseEntity<Company> createCompany(@RequestBody Company company){
+        return ResponseEntity.ok(companyService.createCompany(company));
+    }
+
+    @PutMapping
+    public ResponseEntity<Company> updateCompany(@RequestBody Company company){
+        return ResponseEntity.ok(companyService.updateCompany(company));
+    }
+
+    @DeleteMapping("/{companyId}")
+    public void deleteCompany(@RequestBody Long companyId){
+        companyService.deleteCompany(companyId);
     }
 }

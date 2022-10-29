@@ -24,7 +24,7 @@ public class SkillController {
         return ResponseEntity.ok(skillService.getSkills(pageable));
     }
 
-    @GetMapping
+    @GetMapping("/{skillId}")
     public ResponseEntity<Skill> getSkillById(@PathVariable Long skillId){
         return ResponseEntity.ok(skillService.getSkillById(skillId));
     }

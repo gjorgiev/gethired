@@ -6,6 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface SkillService {
     Page<Skill> getSkills(Pageable pageable);
-
     Skill getSkillById(Long skillId);
 }
