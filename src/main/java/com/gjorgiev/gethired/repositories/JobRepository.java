@@ -14,10 +14,10 @@ import java.util.Optional;
 
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long> {
-    @Query("SELECT j FROM Job j " +
-            "WHERE UPPER(j.title) LIKE UPPER(CONCAT('%',:keywords,'%')) " +
-            "or UPPER(j.description) LIKE UPPER(CONCAT('%',:keywords,'%'))")
-    List<Job> search(@Param("keywords") String keywords);
+    @Query("SELECT job FROM Job job " +
+            "WHERE UPPER(job.title) LIKE UPPER(CONCAT('%',:keyword,'%')) " +
+            "or UPPER(job.description) LIKE UPPER(CONCAT('%',:keyword,'%'))")
+    List<Job> searchByKeyword(@Param("keyword") String keyword);
     List<Job> findAllByCompany(Company company);
     List<Job> findByRemote(boolean remote);
     List<Job> findAllBySkills(Skill skill);

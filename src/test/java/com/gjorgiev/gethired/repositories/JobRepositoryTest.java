@@ -1,12 +1,10 @@
 package com.gjorgiev.gethired.repositories;
 
-import com.gjorgiev.gethired.exceptions.ApiRequestException;
 import com.gjorgiev.gethired.models.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -50,7 +48,7 @@ public class JobRepositoryTest {
     }
 
     @Test
-    public void search() throws Exception {
+    public void searchByKeyword() throws Exception {
         Company company = new Company();
         company.setName("Microsoft");
         entityManager.persist(company);
@@ -65,7 +63,7 @@ public class JobRepositoryTest {
         Job job2 = new Job("Python Developer", "Working with Python an Django Framework", company, true, location);
         entityManager.persist(job2);
 
-        List<Job> jobs = repository.search("java");
+        List<Job> jobs = repository.searchByKeyword("java");
 
         assertThat(jobs).hasSize(1).contains(job1);
     }

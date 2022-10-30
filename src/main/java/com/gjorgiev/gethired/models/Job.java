@@ -35,7 +35,7 @@ public class Job {
     private List<Skill> skills;
     @ManyToMany(mappedBy = "results")
     @JsonIgnore
-    private List<Search> appearedIn;
+    private List<RecentSearch> appearedIn;
 
     public Job(String title, String description, Company company, boolean remote, Location location) {
         this.title = title;

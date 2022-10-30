@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 public interface SkillService {
     Page<Skill> getSkills(Pageable pageable);
     Skill getSkillById(Long skillId);
-
     SkillResponse createSkill(SkillRequest skillRequest);
+    SkillResponse updateSkill(Long skillId, SkillRequest skillRequest);
+    void deleteSkill(Long skillId);
 }

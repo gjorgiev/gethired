@@ -11,6 +11,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/skills")
@@ -28,7 +30,17 @@ public class SkillController {
     }
 
     @PostMapping
-    public ResponseEntity<SkillResponse> createSkill(@RequestBody SkillRequest skillRequest){
+    public ResponseEntity<SkillResponse> createSkill(@Valid @RequestBody SkillRequest skillRequest){
         return ResponseEntity.ok(skillService.createSkill(skillRequest));
+    }
+
+    @PutMapping("/{skillId}")
+    public ResponseEntity<SkillResponse> updateSkill(@PathVariable Long skillId, @Valid @RequestBody SkillRequest skillRequest){
+        return ResponseEntity.ok(skillService.updateSkill(skillId, skillRequest));
+    }
+
+    @DeleteMapping
+    public void deleteSkill(@PathVariable Long skillId){
+        skillService.deleteSkill(skillId);
     }
 }

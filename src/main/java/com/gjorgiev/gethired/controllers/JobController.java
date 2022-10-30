@@ -1,6 +1,7 @@
 package com.gjorgiev.gethired.controllers;
 
 import com.gjorgiev.gethired.dto.request.JobRequest;
+import com.gjorgiev.gethired.dto.request.SearchRequest;
 import com.gjorgiev.gethired.dto.response.JobResponse;
 import com.gjorgiev.gethired.models.Job;
 import com.gjorgiev.gethired.services.JobService;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -33,6 +35,11 @@ public class JobController {
     @PostMapping
     public ResponseEntity<Job> createJob(@Valid @RequestBody JobRequest jobRequest){
         return ResponseEntity.ok(jobService.createNewJob(jobRequest));
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<JobResponse>> searchJobs(@Valid @RequestBody SearchRequest searchRequest){
+        return ResponseEntity.ok(jobService.searchJobs(searchRequest));
     }
 
     @PutMapping("/{jobId}")

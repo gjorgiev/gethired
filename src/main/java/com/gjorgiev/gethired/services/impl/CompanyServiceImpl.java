@@ -7,6 +7,7 @@ import com.gjorgiev.gethired.repositories.CompanyRepository;
 import com.gjorgiev.gethired.services.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

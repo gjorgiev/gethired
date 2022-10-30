@@ -10,4 +10,5 @@ public class JobResponse {
     private String title;
     private String description;
     private Boolean remote;
+    private CompanyResponse company;
 }

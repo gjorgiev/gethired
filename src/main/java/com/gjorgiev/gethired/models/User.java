@@ -29,7 +29,7 @@ public class User {
     private List<Skill> skills;
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private List<Search> searches;
+    private List<RecentSearch> recentSearches;
     public User(){
         this.skills = new ArrayList<>();
     }

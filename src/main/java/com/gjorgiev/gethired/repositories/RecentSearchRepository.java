@@ -1,6 +1,6 @@
 package com.gjorgiev.gethired.repositories;
 
-import com.gjorgiev.gethired.models.Search;
+import com.gjorgiev.gethired.models.RecentSearch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,14 +8,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SearchRepository extends JpaRepository<Search, Long> {
-    @Query("SELECT search FROM Search search " +
+public interface RecentSearchRepository extends JpaRepository<RecentSearch, Long> {
+    @Query("SELECT search FROM RecentSearch search " +
             "WHERE search.user.id = :userId")
-    List<Search> findAllByUserId(Long userId);
-
-    List<Search> findALlByKeywordsContaining(String keywords);
-    @Query("SELECT search FROM Search search " +
+    List<RecentSearch> findAllByUserId(Long userId);
+    @Query("SELECT search FROM RecentSearch search " +
             "LEFT JOIN search.location location " +
             "WHERE location.id = :locationId")
-    List<Search> findAllByLocationId(Long locationId);
+    List<RecentSearch> findAllByLocationId(Long locationId);
 }
